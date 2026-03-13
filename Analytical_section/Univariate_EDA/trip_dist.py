@@ -30,6 +30,8 @@ def trip_dist(df):
     plt.title('Distribution of Trip Distance')
     plt.xlabel('Trip Distance (miles)')
     plt.ylabel('Frequency')
+    #we will have a classic background 
+    plt.style.use('classic')
     #plt.xlim(0, 50)  # ?????Limit x-axis to focus on the majority of trips
     #now we will save the plot as an image file
     plt.savefig('trip_distance_distribution.png')
