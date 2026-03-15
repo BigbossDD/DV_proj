@@ -21,17 +21,28 @@ def trip_dist(df):
     #sns.boxplot(x=df['trip_distance'])
     #plt.title('Boxplot of Trip Distance')
     #plt.show()
-    ####
-    sns.set_style('whitegrid')
-    plt.figure(figsize=(10, 6))
-    # we are using fd to determin the bins 
-    #sns.ecdfplot(df['trip_distance'] )
-    sns.histplot(df['trip_distance'], bins='fd', kde=True, color='blue')
+    #######################################################################
+    ## Now to ploting
+    ##
+    
+    plt.figure()
+     
+    sns.histplot(df['trip_distance'], bins='fd', kde=True, color='darkblue')# we are using fd to determin the bins
+    
     plt.title('Distribution of Trip Distance')
     plt.xlabel('Trip Distance (miles)')
     plt.ylabel('Frequency')
+    
+    plt.axvline(x=df['trip_distance'].mean(), color='black', linestyle='--', label='Mean')
+    #adding the value of the mean in numbers 
+    plt.text(df['trip_distance'].mean(), plt.ylim()[1]*0.9, f'  Mean: {df["trip_distance"].mean():.2f}', color='black')
+    
+    plt.axvline(x=df['trip_distance'].median(), color='darkgreen', linestyle='--', label='Median')
+    plt.legend()
+    
     #we will have a classic background 
     plt.style.use('classic')
+    
     #plt.xlim(0, 50)  # ?????Limit x-axis to focus on the majority of trips
     #now we will save the plot as an image file
     plt.savefig('trip_distance_distribution.png')

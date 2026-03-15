@@ -30,6 +30,13 @@ def analyze_fare_amount(data):
     ##########
     #now the analysis 
     # we are looking for how economic valueable venturing into this market is 
+    plt.figure()
+    sns.displot(x = data.fare_amount , bins = 'fd' , kde = True , color = 'darkblue') # we are using fd to determin the bins    
+    plt.title('Distribution of fare amount')
+    plt.xlabel('Fare amount')
+
+    plt.ylabel('Count')
     
+    plt.show()    
     
     return

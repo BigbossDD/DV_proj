@@ -30,12 +30,12 @@ def read_data():
     # ,Airport_fee : mean ''
     # }
 
-    data['passenger_count'].fillna(data['passenger_count'].mean(), inplace=True)
-    data['RatecodeID'].fillna(data['RatecodeID'].mean(), inplace=True)
-    data['store_and_fwd_flag'].fillna(data['store_and_fwd_flag'].mode()[0], inplace=True)
-    data['payment_type'].fillna(data['payment_type'].mode()[0], inplace=True)
-    data['congestion_surcharge'].fillna(data['congestion_surcharge'].mode()[0], inplace=True)
-    data['Airport_fee'].fillna(data['Airport_fee'].mean(), inplace=True)        
+    data['passenger_count']=data['passenger_count'].fillna(data['passenger_count'].mean())
+    data['RatecodeID']=data['RatecodeID'].fillna(data['RatecodeID'].mean())
+    data['store_and_fwd_flag']=data['store_and_fwd_flag'].fillna(data['store_and_fwd_flag'].mode()[0])
+    data['payment_type']=data['payment_type'].fillna(data['payment_type'].mode()[0])
+    data['congestion_surcharge']=data['congestion_surcharge'].fillna(data['congestion_surcharge'].mode()[0])
+    data['Airport_fee']=data['Airport_fee'].fillna(data['Airport_fee'].mean())        
 
     ### print(data.isnull().sum())
 
