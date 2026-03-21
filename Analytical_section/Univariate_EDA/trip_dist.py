@@ -24,10 +24,12 @@ def trip_dist(df):
     #######################################################################
     ## Now to ploting
     ##
-    
+    plt.style.use('classic')
     plt.figure()
      
-    sns.histplot(df['trip_distance'], bins='fd', kde=True, color='darkblue')# we are using fd to determin the bins
+    #sns.histplot(df['trip_distance'], bins='fd', kde=True, palette='set2' , fill= True  )# we are using fd to determin the bins
+    # Replace your histplot line with this:
+    sns.kdeplot(df['trip_distance'], fill=True, color='#4C72B0',palette='Set2' , alpha=0.6)  # KDE plot with fill and color
     
     plt.title('Distribution of Trip Distance')
     plt.xlabel('Trip Distance (miles)')
@@ -41,7 +43,7 @@ def trip_dist(df):
     plt.legend()
     
     #we will have a classic background 
-    plt.style.use('classic')
+   
     
     #plt.xlim(0, 50)  # ?????Limit x-axis to focus on the majority of trips
     #now we will save the plot as an image file
@@ -49,7 +51,7 @@ def trip_dist(df):
     plt.show()
 
 #a quick note a 1 mile is ~1.6 km 
-#
+# remove the lines that indicate max value it reachecd to 
 #
 
 

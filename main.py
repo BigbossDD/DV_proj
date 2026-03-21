@@ -3,6 +3,11 @@ from preprocessing.reading_data import read_data
 from Analytical_section.Univariate_EDA.fare_amount import analyze_fare_amount
 from Analytical_section.Univariate_EDA.trip_dist import trip_dist
 from Analytical_section.Univariate_EDA.payment_type import payment_type
+from Analytical_section.Univariate_EDA.rate_code import rate_code
+from Analytical_section.Univariate_EDA.dist_passenger import dist_passenger
+from Analytical_section.Univariate_EDA.count_trips_over_time import passenger_count_over_time
+
+
 def main():
     #Reading the data section
     print("Reading data...")
@@ -11,16 +16,21 @@ def main():
     
     #
     
-    #print(data.head(10))
+    print(data.head(10))
     
     #UNIVARIATE ANALYSIS
     
     # analyze_fare_amount(data) # need work
     
-    # trip_dist(data) # --> DONE , maybe color
+    #trip_dist(data) # --> DONE , maybe color
     
-    payment_type(data) # --> need more on the color and the x axis numbers are bad looking 
+    #payment_type(data) # --> need more on the color and the x axis numbers are bad looking 
+    # rate_code(data) --> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
+
+    #dist_passenger(data) # --> DONE , maybe color and x axis numbers are bad looking
     
+    passenger_count_over_time(data)
+
     #multivariate analysis
     
     #bivariate analysis
