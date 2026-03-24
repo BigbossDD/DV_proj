@@ -16,20 +16,20 @@ def main():
     
     #
     
-    print(data.head(10))
+    #print(data.head(10))
     
     #UNIVARIATE ANALYSIS
     
-    # analyze_fare_amount(data) # need work
+    #analyze_fare_amount(data) # need work
     
     #trip_dist(data) # --> DONE , maybe color
     
     #payment_type(data) # --> need more on the color and the x axis numbers are bad looking 
-    # rate_code(data) --> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
+    rate_code(data) #--> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
 
     #dist_passenger(data) # --> DONE , maybe color and x axis numbers are bad looking
     
-    passenger_count_over_time(data)
+    #passenger_count_over_time(data)
 
     #multivariate analysis
     

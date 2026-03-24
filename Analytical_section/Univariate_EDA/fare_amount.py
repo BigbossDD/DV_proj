@@ -36,7 +36,7 @@ def analyze_fare_amount(data):
     plt.xlabel('Fare amount')
 
     plt.ylabel('Count')
-    
+    plt.savefig('analyze_fare_amount')
     plt.show()    
     
     return

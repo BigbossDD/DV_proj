@@ -12,7 +12,7 @@ def rate_code(data):
     #in it use tpep_pickup_datetime col , and passenger_count
     
     sns.countplot(y=data.RatecodeID,
-                       width=0.6 , 
+                       width=0.8 , 
                        palette='Set2' , order = data.RatecodeID.value_counts().index)  
         
 
