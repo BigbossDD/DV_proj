@@ -2,20 +2,30 @@
 #look up table 
 #as well outliers
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def detect_anomalies(data):
 
 # 1- fare amount 
     #now it gave 86k as a max for fare amount so for me it is odd so i will investigate
     
-    #sns.boxplot(x  = data.fare_amount)
-    #plt.show()
+    sns.boxplot(x  = data.fare_amount)
+    plt.show()
     
-    # after checking the plot , there is  3 points of intrest , one at 5k other at 15k while the last at 86k 
+    # after checking the plot , there is  7029 points of intrest , one at 5k other at 130k while the last at 863k 
     #so clearly they are outliers , and they wont be of any use to us , as even if they are real , 
-    #they will be one in life anomaly rather than something you can study 
+    #they will be one in life anomaly rather than something you can study
+    # there is no way someone is paying more than 150 to a taxi even in the worst scams  
     #so we will remove them 
-    data = data[data.fare_amount < 5000]
+    #data = data[data.fare_amount < 5000]
+
+    # the rows that has this issue are : 
+    #via -->
+    x = data[data.fare_amount > 150 ]
+    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+
+    
 
     #sns.boxplot(x  = data.fare_amount )
     #plt.show()
@@ -25,6 +35,9 @@ def detect_anomalies(data):
     data.fare_amount = data.fare_amount.apply(lambda x : -x if x < 0 else x)
     #sns.boxplot(x  = data.fare_amount )
     #plt.show()
+    x = data[data.fare_amount <0]
+    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+
 ########
 #2 - passenger count & tpep_pickup_datetime
     #first we will need to turn the date data into either years only or month and years 
@@ -38,7 +51,7 @@ def detect_anomalies(data):
     # will count the number of trips in each month and then we will plot it
 
     data['month'] = data['tpep_pickup_datetime'].dt.month
-    #print(data['month'].value_counts())
+    print(data['month'].value_counts())
 
     # after we checked the data we found that we have 6 month presented with these values : 
     #3     4146032
@@ -73,6 +86,11 @@ RatecodeID
  88.000000        533   BAD --> TURN TO 99
  6.000000          11   OKAY
  '''
+    
+
+##############################################
+
+
     return  data 
 
 
