@@ -6,7 +6,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def detect_anomalies(data):
-
+#################
+# NOTE this is UNivarite related : 
 # 1- fare amount 
     #now it gave 86k as a max for fare amount so for me it is odd so i will investigate
     
@@ -89,8 +90,13 @@ RatecodeID
     
 
 ##############################################
+#################
+# NOTE this is bi-variate related : 
 
 
+##############################################
+#################
+# NOTE this is multi-variate related :
     return  data 
 
 
