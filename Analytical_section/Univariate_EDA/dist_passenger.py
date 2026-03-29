@@ -4,10 +4,11 @@ import seaborn as sns
 def dist_passenger(df):
     
     ##
-    plt.style.use('classic')
+    plt.style.use('fast')
     plt.figure()
-     
-    sns.histplot(df.passenger_count, bins='fd', kde=False, palette='Pastel1', linewidth=3 , fill=False )# we are using fd to determin the bins
+     # also we want it hori and we want them ordered 
+
+    sns.histplot(y = df.passenger_count, bins=9, kde=False, color='lightgray' ,  linewidth=2 , fill=True   )# we are using fd to determin the bins
     
     plt.title('Distribution of Trip Distance')
     plt.xlabel('Trip Distance (miles)')
@@ -24,6 +25,7 @@ def dist_passenger(df):
     
     sns.despine()
     #plt.xlim(0, 50)  # ?????Limit x-axis to focus on the majority of trips
+    sns.despine()
     #now we will save the plot as an image file
     plt.savefig('dist_passenger.png')
     plt.show()

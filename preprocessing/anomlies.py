@@ -62,7 +62,36 @@ def detect_anomalies(data):
     #4           2
     # so from it  we can see clearly that we must remove month 12 and 4 as they are not representative
     #  and they are basically outliers and they will affect our analysis
-    
+    print(data[data.month == 12][['trip_id','month']])
+    print(data[data.month == 4][['trip_id','month']])
+    # the exact rows that has this issue : 
+    '''        trip_id  month
+    605          606     12
+    687          688     12
+    688          689     12
+    861          862     12
+    1108        1109     12
+    1312        1313     12
+    2276        2277     12
+    3941        3942     12
+    3942        3943     12
+    4324        4325     12
+    4370        4371     12
+    4654        4655     12
+    4655        4656     12
+    5217        5218     12
+    5335        5336     12
+    7623        7624     12
+    7624        7625     12
+    7625        7626     12
+    17542      17543     12
+    20611      20612     12
+    20612      20613     12
+    7880444  7880445     12
+            trip_id  month
+    10278974  10278975      4
+    10280573  10280574      4
+'''
     data = data[(data['month'] != 12) & (data['month'] != 4)]
 
     #ALSO in passenger_count there exist 1.2888 as a passenger_count which is not possible so it will need to be turned into 
@@ -87,6 +116,15 @@ RatecodeID
  88.000000        533   BAD --> TURN TO 99
  6.000000          11   OKAY
  '''
+    # so we will need to turn 2.459329 to 2 as it is the closest value to it and it is the most likely value to be the real one
+    # also we will need to turn -1 to 1 as it is the closest value to it and it is the most likely value to be the real one
+    # also we will need to turn 12 to unknown as it is not in the look up table and it is not a valid value
+    # also we will need to turn 88 to 99 as it is the closest value to it and it is the most likely value to be the real one
+
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 2 if x == 2.459329 else x)
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 1 if x == -1 else x)
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 'unknown' if x == 12 else x)
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 99 if x == 88 else x)
     
 
 ##############################################

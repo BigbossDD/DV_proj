@@ -19,8 +19,6 @@ def main():
     #preprocessing
     print("Preprocessing data...")
     #####
-
-
     
     #data = handle_nulls(data)
 
