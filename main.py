@@ -14,16 +14,38 @@ import matplotlib.pyplot as plt
 def main():
     #Reading the data section
     print("Reading data...")
-    data = read_data()
+    #data = read_data()
+    df = pd.read_csv('missing_values.csv')
     #######
     #preprocessing
     print("Preprocessing data...")
     #####
-    
+    print(df.head())
     #data = handle_nulls(data)
 
     #data = detect_anomalies(data)
 
+    missing_cols = [
+        'passenger_count',
+        'RatecodeID',
+        'store_and_fwd_flag',
+        'payment_type',
+        'congestion_surcharge',
+        'Airport_fee'
+    ]
+    #print(data[missing_cols].isnull().sum())
+
+        # define the cols with missing values
+   
+
+    # extract only those columns + trip_id as reference
+    # i will send only these col specifickly only the rows that has null
+    #missing_df = data[data[missing_cols].isnull().any(axis=1)][['trip_id'] + missing_cols]
+    # missing_df = data[['trip_id'] + missing_cols]
+
+    # save to csv
+   # missing_df.to_csv('missing_values.csv', index=False)
+  #  print(f"Saved {missing_df.shape[0]} rows x {missing_df.shape[1]} cols")
 
 
 
