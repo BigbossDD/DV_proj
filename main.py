@@ -1,4 +1,6 @@
 import pandas as pd
+from Analytical_section.Bivariate_EDA.hour_x_trip_volume import hour_x_trip_volume
+from Analytical_section.Bivariate_EDA.weekDay_X_demand import weekDay_x_trip_volume
 from preprocessing.reading_data import read_data
 from Analytical_section.Univariate_EDA.fare_amount import analyze_fare_amount
 from Analytical_section.Univariate_EDA.trip_dist import trip_dist
@@ -14,13 +16,13 @@ import matplotlib.pyplot as plt
 def main():
     #Reading the data section
     print("Reading data...")
-    #data = read_data()
-    df = pd.read_csv('missing_values.csv')
+    data = read_data()
+    #df = pd.read_csv('missing_values.csv')
     #######
     #preprocessing
     print("Preprocessing data...")
     #####
-    print(df.head())
+    #print(df.head())
     #data = handle_nulls(data)
 
     #data = detect_anomalies(data)
@@ -75,7 +77,8 @@ def main():
 
 ###################
     #bivariate analysis
-    
+    #hour_x_trip_volume(data)
+    weekDay_x_trip_volume(data)
 ###################
     #multivariate analysis
     
