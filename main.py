@@ -28,9 +28,6 @@ def main():
     #data = detect_anomalies(data)
 
     ################### NOTE this section is MICS so delete when done 
-    x = data[data.fare_amount > 500 ]
-    print(len(x[['trip_id', 'fare_amount','total_amount']]))
-    
     
     missing_cols = [
         'passenger_count',
