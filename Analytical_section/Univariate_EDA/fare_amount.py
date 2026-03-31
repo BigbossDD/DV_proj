@@ -5,12 +5,12 @@ def analyze_fare_amount(data):
     
     
     
-    
+    #NOTE : remove those later 
     data=data[data.fare_amount < 150    ]
     data = data[data.fare_amount > 0    ]
     
     plt.style.use('fast')
-    plt.figure()
+    plt.figure( figsize=(10, 6) )
     sns.histplot(x = data.fare_amount , bins = 220 , kde = False , color = 'lightgray'  ) # we are using fd to determin the bins    
     
     plt.axvline(x=data.fare_amount.mean(), color='black', linestyle='--', label='Mean')
@@ -21,8 +21,8 @@ def analyze_fare_amount(data):
     
     plt.title('Distribution of fare amount')
     plt.xlabel('Fare amount')
+    plt.ylabel('frequency of trips')
 
-    plt.ylabel('Count')
     sns.despine() # to look like R classic
     plt.savefig('analyze_fare_amount')
     plt.show()    

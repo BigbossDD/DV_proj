@@ -19,4 +19,13 @@ def read_data():
 
 
     # print(data.duplicated().sum()) # no duplicats 
+
+
+    # we added some useful columns to the data to make it easier for us to do some analysis on it
+
+    data['month'] = data['tpep_pickup_datetime'].dt.month
+
+    data['pickup_hour'] = pd.to_datetime(data['tpep_pickup_datetime']).dt.hour
+
+    data['pickup_weekday'] = pd.to_datetime(data['tpep_pickup_datetime']).dt.day_name()
     return data

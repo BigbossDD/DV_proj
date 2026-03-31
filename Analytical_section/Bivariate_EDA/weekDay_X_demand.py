@@ -8,8 +8,7 @@ def weekDay_x_trip_volume(data):
     plt.style.use('fast')
     plt.figure(figsize=(10, 6))
 
-    # Extract weekday from pickup_datetime
-    data['pickup_weekday'] = pd.to_datetime(data['tpep_pickup_datetime']).dt.day_name()
+    
 
     # Group by weekday and count trips
     weekday_trips = data.groupby('pickup_weekday').size().reset_index(name='trip_count')

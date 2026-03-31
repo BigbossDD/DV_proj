@@ -11,8 +11,8 @@ def detect_anomalies(data):
 # 1- fare amount 
     #now it gave 86k as a max for fare amount so for me it is odd so i will investigate
     
-    sns.boxplot(x  = data.fare_amount)
-    plt.show()
+    #sns.boxplot(x  = data.fare_amount)
+    #plt.show()
     
     # after checking the plot , there is  7029 points of intrest , one at 5k other at 130k while the last at 863k 
     #so clearly they are outliers , and they wont be of any use to us , as even if they are real , 
@@ -26,6 +26,16 @@ def detect_anomalies(data):
     x = data[data.fare_amount > 150 ]
     print(len(x[['trip_id', 'fare_amount','total_amount']]))
 
+
+    # and above 500 there is 146 so a i can remove them as they will not affect the data 
+    x = data[data.fare_amount > 500 ]
+    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+    
+    # so i will remove whats above 500 as it is not a real value and it will affect the data
+    data = data[data.fare_amount < 500]
+
+
+    
     
 
     #sns.boxplot(x  = data.fare_amount )
@@ -36,8 +46,8 @@ def detect_anomalies(data):
     data.fare_amount = data.fare_amount.apply(lambda x : -x if x < 0 else x)
     #sns.boxplot(x  = data.fare_amount )
     #plt.show()
-    x = data[data.fare_amount <0]
-    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+    #x = data[data.fare_amount <0]
+    #print(len(x[['trip_id', 'fare_amount','total_amount']]))
 
 ########
 #2 - passenger count & tpep_pickup_datetime
@@ -52,7 +62,7 @@ def detect_anomalies(data):
     # will count the number of trips in each month and then we will plot it
 
     data['month'] = data['tpep_pickup_datetime'].dt.month
-    print(data['month'].value_counts())
+    #print(data['month'].value_counts())
 
     # after we checked the data we found that we have 6 month presented with these values : 
     #3     4146032
@@ -62,8 +72,8 @@ def detect_anomalies(data):
     #4           2
     # so from it  we can see clearly that we must remove month 12 and 4 as they are not representative
     #  and they are basically outliers and they will affect our analysis
-    print(data[data.month == 12][['trip_id','month']])
-    print(data[data.month == 4][['trip_id','month']])
+    #print(data[data.month == 12][['trip_id','month']])
+    #print(data[data.month == 4][['trip_id','month']])
     # the exact rows that has this issue : 
     '''        trip_id  month
     605          606     12
@@ -96,7 +106,7 @@ def detect_anomalies(data):
 
     #ALSO in passenger_count there exist 1.2888 as a passenger_count which is not possible so it will need to be turned into 
     # 1 as it is the closest value to it and it is the most likely value to be the real one
-
+    data['passenger_count'] = data['passenger_count'].round().astype(int)
 #####################################
 # 3- RatecodeID
 
@@ -125,8 +135,109 @@ RatecodeID
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 1 if x == -1 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 'unknown' if x == 12 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 99 if x == 88 else x)
-    
+#########################
+#4- 
+# in the trip dist col there are extreme values , like 300k miles which is not possible , and many outliers 
+#so investgation where done and here it is its resluts : 
 
+    # step 1 — understand the scale of the problem
+    print(data['trip_distance'].describe())
+
+    # step 2 — bucket it to see where the junk starts
+    bins = [0, 10, 50, 100, 500, 1000, 10000, float('inf')]
+    labels = ['0-10', '10-50', '50-100', '100-500', '500-1k', '1k-10k', '10k+']
+    print(pd.cut(data['trip_distance'], bins=bins, labels=labels).value_counts().sort_index())
+
+    # step 3 — cross check with fare_amount
+    # a 300k mile trip should have an astronomical fare — if fare is $12, it's fake
+    print(data[data['trip_distance'] > 100000][['trip_id', 'trip_distance', 'fare_amount']].head(20))
+    '''
+    count    1.120028e+07
+    mean     6.177720e+00
+    std      5.817647e+02
+    min     -3.809000e+01
+    25%      1.000000e+00
+    50%      1.720000e+00
+    75%      3.240000e+00
+    max      3.201363e+05
+    Name: trip_distance, dtype: float64
+    trip_distance
+    0-10       10161809
+    10-50        740724
+    50-100         1033
+    100-500         121
+    500-1k            5
+    1k-10k           40
+    10k+            382
+    Name: count, dtype: int64
+                  trip_id  trip_distance  fare_amount
+        2956166  2956167      158925.09        10.82
+        2993346  2993347      121555.16         6.96
+        2993436  2993437      143712.27         8.51
+        2998745  2998746      101607.42        -1.50
+        3009250  3009251      156037.94        28.74
+        3027695  3027696      118435.89        18.09
+        3034143  3034144      134033.15        18.14
+        3049345  3049346      104448.07        15.38
+        3069039  3069040      181139.99         6.33
+        3070619  3070620      124083.23        12.14
+        3081597  3081598      189687.43        12.70
+        3107124  3107125      106629.95        12.55
+        3112173  3112174      206137.99        24.89
+        3138510  3138511      164959.95        14.05
+        3151556  3151557      107806.31        24.25
+        3188501  3188502      276099.95         9.13
+        3195037  3195038      167452.94        -4.00
+        3238331  3238332      114364.71        27.90
+        3240337  3240338      222167.49        31.19
+        3259180  3259181      121799.97        21.82
+    '''
+    # looking at the data above we can clearly see that fare amount in no way matches the dist covered 
+    # no getting the mean for all the data point that have a dist above 100 miles
+
+    suspicious = data[data['trip_distance'] > 100][['trip_id', 'trip_distance', 'fare_amount']]
+
+    print(f"Count  : {len(suspicious)}")
+    print(f"\ntri_distance stats:")
+    print(suspicious['trip_distance'].describe())
+    print(f"\nfare_amount stats:")
+    print(suspicious['fare_amount'].describe())
+
+    # the key ratio — if distance is 100k+ but fare is normal, it's corrupted
+    print(f"\nMean distance : {suspicious['trip_distance'].mean():,.2f} miles")
+    print(f"Mean fare     : {suspicious['fare_amount'].mean():,.2f} USD")
+    print(f"\nExpected fare at mean distance (at $3/mile) : ${suspicious['trip_distance'].mean() * 3:,.2f}")
+    print(f"Actual mean fare                             : ${suspicious['fare_amount'].mean():,.2f}")
+    #Mean distance : 62,167.25 miles    
+    #Mean fare     : 187.47 USD
+    #Expected fare at mean distance (at $3/mile) : $186,501.75
+    #Actual mean fare                             : $187.47
+    '''
+    Count  : 548 --> DATA points with trip distance above 100 miles
+
+tri_distance stats:
+count       548.000000
+mean      62167.249069
+std       55303.315991
+min         100.170000
+25%        1963.365000
+50%       67088.645000
+75%       89797.267500
+max      320136.290000
+Name: trip_distance, dtype: float64
+
+fare_amount stats:
+count      548.000000
+mean       187.471880
+std       1996.344116
+min      -1807.600000
+25%         11.200000
+50%         19.910000
+75%         36.560000
+max      46263.880000
+Name: fare_amount, dtype: float64
+    '''
+    #
 ##############################################
 #################
 # NOTE this is bi-variate related : 

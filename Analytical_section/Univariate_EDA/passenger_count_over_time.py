@@ -4,7 +4,7 @@ import seaborn as sns
 def passenger_count_over_time(data):
     #
 
-    plt.style.use('classic')
+    plt.style.use('fast')
     plt.figure(figsize=(12, 6))
     
     
@@ -16,11 +16,11 @@ def passenger_count_over_time(data):
        
     )
     
-    #plt.title('Frequencies of Payment Types')
-    #plt.xlabel('Payment Type')
-    #plt.ylabel('Frequency')
+    plt.title('Passenger Count Distribution Over Months')
+    plt.xlabel('Month')
+    plt.ylabel('Number of passengers')
     
-    
+    #plt.yscale('log')
     sns.despine() 
     
     plt.savefig('passenger_count_over_time.png')
