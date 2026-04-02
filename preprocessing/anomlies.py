@@ -23,13 +23,13 @@ def detect_anomalies(data):
 
     # the rows that has this issue are : 
     #via -->
-    x = data[data.fare_amount > 150 ]
-    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+    #x = data[data.fare_amount > 150 ]
+    #print(len(x[['trip_id', 'fare_amount','total_amount']]))
 
 
     # and above 500 there is 146 so a i can remove them as they will not affect the data 
-    x = data[data.fare_amount > 500 ]
-    print(len(x[['trip_id', 'fare_amount','total_amount']]))
+    #x = data[data.fare_amount > 500 ]
+    #print(len(x[['trip_id', 'fare_amount','total_amount']]))
     
     # so i will remove whats above 500 as it is not a real value and it will affect the data
     data = data[data.fare_amount < 500]
@@ -61,7 +61,7 @@ def detect_anomalies(data):
     # and it is all in 2025 so we will create bins for the months only and then we 
     # will count the number of trips in each month and then we will plot it
 
-    data['month'] = data['tpep_pickup_datetime'].dt.month
+    
     #print(data['month'].value_counts())
 
     # after we checked the data we found that we have 6 month presented with these values : 
@@ -106,12 +106,12 @@ def detect_anomalies(data):
 
     #ALSO in passenger_count there exist 1.2888 as a passenger_count which is not possible so it will need to be turned into 
     # 1 as it is the closest value to it and it is the most likely value to be the real one
-    data['passenger_count'] = data['passenger_count'].round().astype(int)
+    data['passenger_count'] = data['passenger_count'].round().astype(int) #NOTE
 #####################################
 # 3- RatecodeID
 
     # in it exist values not in the look up table which are : 
-    print(data['RatecodeID'].value_counts())
+    #print(data['RatecodeID'].value_counts())
     '''
 RatecodeID
  1.000000     8391091   OKAY
@@ -131,9 +131,9 @@ RatecodeID
     # also we will need to turn 12 to unknown as it is not in the look up table and it is not a valid value
     # also we will need to turn 88 to 99 as it is the closest value to it and it is the most likely value to be the real one
 
-    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 2 if x == 2.459329 else x)
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 2 if x == 2.459329 else x)#NOTE
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 1 if x == -1 else x)
-    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 'unknown' if x == 12 else x)
+    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 6 if x == 12 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 99 if x == 88 else x)
 #########################
 #4- 
@@ -141,16 +141,16 @@ RatecodeID
 #so investgation where done and here it is its resluts : 
 
     # step 1 — understand the scale of the problem
-    print(data['trip_distance'].describe())
+    #print(data['trip_distance'].describe())
 
     # step 2 — bucket it to see where the junk starts
-    bins = [0, 10, 50, 100, 500, 1000, 10000, float('inf')]
-    labels = ['0-10', '10-50', '50-100', '100-500', '500-1k', '1k-10k', '10k+']
-    print(pd.cut(data['trip_distance'], bins=bins, labels=labels).value_counts().sort_index())
+    #bins = [0, 10, 50, 100, 500, 1000, 10000, float('inf')]
+    #labels = ['0-10', '10-50', '50-100', '100-500', '500-1k', '1k-10k', '10k+']
+    #print(pd.cut(data['trip_distance'], bins=bins, labels=labels).value_counts().sort_index())
 
     # step 3 — cross check with fare_amount
     # a 300k mile trip should have an astronomical fare — if fare is $12, it's fake
-    print(data[data['trip_distance'] > 100000][['trip_id', 'trip_distance', 'fare_amount']].head(20))
+    #print(data[data['trip_distance'] > 100000][['trip_id', 'trip_distance', 'fare_amount']].head(20))
     '''
     count    1.120028e+07
     mean     6.177720e+00
@@ -195,19 +195,19 @@ RatecodeID
     # looking at the data above we can clearly see that fare amount in no way matches the dist covered 
     # no getting the mean for all the data point that have a dist above 100 miles
 
-    suspicious = data[data['trip_distance'] > 100][['trip_id', 'trip_distance', 'fare_amount']]
+    #suspicious = data[data['trip_distance'] > 100][['trip_id', 'trip_distance', 'fare_amount']]
 
-    print(f"Count  : {len(suspicious)}")
-    print(f"\ntri_distance stats:")
-    print(suspicious['trip_distance'].describe())
-    print(f"\nfare_amount stats:")
-    print(suspicious['fare_amount'].describe())
+    #print(f"Count  : {len(suspicious)}")
+    #print(f"\ntri_distance stats:")
+    #print(suspicious['trip_distance'].describe())
+    #print(f"\nfare_amount stats:")
+    #print(suspicious['fare_amount'].describe())
 
     # the key ratio — if distance is 100k+ but fare is normal, it's corrupted
-    print(f"\nMean distance : {suspicious['trip_distance'].mean():,.2f} miles")
-    print(f"Mean fare     : {suspicious['fare_amount'].mean():,.2f} USD")
-    print(f"\nExpected fare at mean distance (at $3/mile) : ${suspicious['trip_distance'].mean() * 3:,.2f}")
-    print(f"Actual mean fare                             : ${suspicious['fare_amount'].mean():,.2f}")
+    #print(f"\nMean distance : {suspicious['trip_distance'].mean():,.2f} miles")
+    #print(f"Mean fare     : {suspicious['fare_amount'].mean():,.2f} USD")
+    #print(f"\nExpected fare at mean distance (at $3/mile) : ${suspicious['trip_distance'].mean() * 3:,.2f}")
+    #print(f"Actual mean fare                             : ${suspicious['fare_amount'].mean():,.2f}")
     #Mean distance : 62,167.25 miles    
     #Mean fare     : 187.47 USD
     #Expected fare at mean distance (at $3/mile) : $186,501.75
@@ -237,7 +237,8 @@ min      -1807.600000
 max      46263.880000
 Name: fare_amount, dtype: float64
     '''
-    #
+    #so a desion was taken to remove all the data points that have a trip distance above 100 miles as they are not real and they will affect our analysis
+    data = data[data['trip_distance'] <= 100]
 ##############################################
 #################
 # NOTE this is bi-variate related : 
