@@ -1,5 +1,6 @@
 import pandas as pd
 from Analytical_section.Bivariate_EDA.hour_x_trip_volume import hour_x_trip_volume
+from Analytical_section.Bivariate_EDA.paymentType_X_totalAmount import paymentType_X_totalAmount
 from Analytical_section.Bivariate_EDA.weekDay_X_demand import weekDay_x_trip_volume
 from preprocessing.reading_data import read_data
 from Analytical_section.Univariate_EDA.fare_amount import analyze_fare_amount
@@ -25,9 +26,11 @@ def main():
     
     data = handle_nulls(data)
 
-    data = detect_anomalies(data)
+    #data = detect_anomalies(data)
 
     ################### NOTE this section is MICS so delete when done 
+
+    print(data.total_amount[data.total_amount  < 0].count())
     
     missing_cols = [
         'passenger_count',
@@ -53,7 +56,7 @@ def main():
     #trip_dist(data) # --> DONE , maybe color
     
     #payment_type(data) # --> need more on the color and the x axis numbers are bad looking 
-    rate_code(data) #--> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
+    #rate_code(data) #--> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
 
     #dist_passenger(data) # --> check again 
     
@@ -65,6 +68,7 @@ def main():
 
     #hour_x_trip_volume(data)
     #weekDay_x_trip_volume(data)
+    #paymentType_X_totalAmount(data)
 ###################
     #multivariate analysis
     

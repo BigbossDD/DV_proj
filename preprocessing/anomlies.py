@@ -242,7 +242,31 @@ Name: fare_amount, dtype: float64
 ##############################################
 #################
 # NOTE this is bi-variate related : 
+# 1- in payment type   
+    '''
+    payment_type
+1.0    7483941 --> OK
+0.0    2262858 --> OK
+2.0    1135221  --> OK
+4.0     241126  --> OK
+3.0      72464  --> OK
+8.0        605  --> BAD
+9.0        559 --> BAD
+7.0        549 --> BAD
+5.0          1 --> OK , BUT it is only one value and it is called unknown so is it like a null value  ? 
+<MIA> --> 6  and it is actually called voided so investgate ?
+'''
 
+
+    #print(data.payment_type.value_counts())
+
+#2 - in total amount there exist some negative values which doesnt make any sense as it is the total amount that the 
+# passenger paid so it will need to be turned into positive values as it is the most 
+# likely case that it is a mistake made when entering the value 
+
+     # amount of negative values is 186936 , which is high 
+
+    data.total_amount = data.total_amount.apply(lambda x : -x if x < 0 else x)
 
 ##############################################
 #################
