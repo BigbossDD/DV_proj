@@ -1,4 +1,5 @@
 import pandas as pd
+from Analytical_section.Univariate_EDA.VendorID_trips_count_for_each import VendorID_trips_count_for_each
 from Analytical_section.Bivariate_EDA.hour_x_trip_volume import hour_x_trip_volume
 from Analytical_section.Bivariate_EDA.paymentType_X_totalAmount import paymentType_X_totalAmount
 from Analytical_section.Bivariate_EDA.weekDay_X_demand import weekDay_x_trip_volume
@@ -30,8 +31,6 @@ def main():
 
     ################### NOTE this section is MICS so delete when done 
 
-    print(data.total_amount[data.total_amount  < 0].count())
-    
     missing_cols = [
         'passenger_count',
         'RatecodeID',
@@ -41,7 +40,6 @@ def main():
         'Airport_fee'
     ]
     
-
     
 ###################################
     print('Starting analysis...')
@@ -62,6 +60,7 @@ def main():
     
     #passenger_count_over_time(data)
 
+    VendorID_trips_count_for_each(data) # DONE
 
 ###################
     #bivariate analysis
@@ -69,6 +68,8 @@ def main():
     #hour_x_trip_volume(data)
     #weekDay_x_trip_volume(data)
     #paymentType_X_totalAmount(data)
+    
+    
 ###################
     #multivariate analysis
     

@@ -31,13 +31,13 @@ def read_data():
 
 
     # checking for duplicates & removing them :
-    cols = [c for c in data.columns if c != 'trip_id']
-    df_clean = data.drop_duplicates(subset=cols)
+    #cols = [c for c in data.columns if c != 'trip_id']
+    #df_clean = data.drop_duplicates(subset=cols)
 
-    print(f"Rows before : {len(data)}")
-    print(f"Rows after  : {len(df_clean)}")
-    print(f"Duplicates removed : {len(data) - len(df_clean)}")
-    data = df_clean
+    #print(f"Rows before : {len(data)}")
+    #print(f"Rows after  : {len(df_clean)}")
+    #print(f"Duplicates removed : {len(data) - len(df_clean)}")
+    #data = df_clean
 
     '''
     Rows before : 11200280
