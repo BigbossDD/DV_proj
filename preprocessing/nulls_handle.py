@@ -47,7 +47,7 @@ tip_amount                     0
 tolls_amount                   0
 improvement_surcharge          0
 total_amount                   0
-congestion_surcharge     2264213
+congestion_surcharge     2264213 we could say that it and the one below it could be zero as it is like a special additive to the cost 
 Airport_fee              2263828
 cbd_congestion_fee             0
 source_month                   0
