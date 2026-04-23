@@ -39,7 +39,7 @@ RatecodeID               2264213 we could turn it into 99 which is the null flag
 store_and_fwd_flag       2264213
 PULocationID                   0
 DOLocationID                   0
-payment_type                1702
+payment_type                1702 must be moved to Id 5 which is the null ID in that col 
 fare_amount                    0
 extra                          0
 mta_tax                        0
