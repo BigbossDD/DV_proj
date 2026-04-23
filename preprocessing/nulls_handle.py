@@ -35,7 +35,7 @@ tpep_pickup_datetime           0
 tpep_dropoff_datetime          0
 passenger_count          2267572
 trip_distance                  0
-RatecodeID               2264213
+RatecodeID               2264213 we could turn it into 99 which is the null flag for this col 
 store_and_fwd_flag       2264213
 PULocationID                   0
 DOLocationID                   0
