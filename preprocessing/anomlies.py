@@ -117,7 +117,8 @@ RatecodeID
  1.000000     8391091   OKAY
  2.459329     2264213   BAD  --> TURN TO 2 LOGICLY AS 2 MUST BE HIGHER THAN 3 
  2.000000      288617   OKAY
- 99.000000     125079   Okay this null deal with it 
+ 99.000000     125079   Okay this is named null ,yet it can be considered that the driver forgot to turn meter on 
+
  5.000000       81028   OKAY
  3.000000       27176   OKAY
  4.000000       21318   OKAY
