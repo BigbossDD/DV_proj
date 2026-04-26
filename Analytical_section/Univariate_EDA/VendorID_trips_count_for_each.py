@@ -31,13 +31,12 @@ def VendorID_trips_count_for_each(data):
     for container in ax.containers:
          ax.bar_label(container, label_type='edge', padding=3 , fmt='%.0f')
 
-    plt.title('Total Amount Distribution by VendorID', fontsize=14, fontweight='bold')
+    plt.title('Trip Count by Vendor', fontsize=14, fontweight='bold')
 
     
     plt.ylabel('VendorID', fontsize=12)
     
-    plt.xlabel('Trip Count (in millions)', fontsize=12)
-
+    plt.xlabel('Number of Trips')
     plt.yticks(rotation=45)  
 
 

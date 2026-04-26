@@ -7,6 +7,7 @@ def handle_nulls(data):
     
 
     #print(data.isnull().sum())
+    # a suggested way to deal with the nulls 
     # nulls do exisit in and how we will dealwith it  {
     # passenger_count:mean'it make sense that we fill it with the mean as the ppl in the city are the same and that is there pattern' 
     # ,RatecodeID: mean 'it actally better as it help the company look good'

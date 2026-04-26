@@ -27,9 +27,11 @@ def rate_code(data):
     )
 
     plt.title('Frequencies of RateCode Types')
-    plt.xlabel('Count')
+    plt.xlabel('Number of Trips')
     plt.ylabel('Rate Code')
+    
     sns.despine()
     plt.tight_layout()
+    
     plt.savefig('rate_code_freq.png')
     plt.show()

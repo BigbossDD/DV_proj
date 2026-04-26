@@ -4,35 +4,23 @@ import seaborn as sns
 def dist_passenger(df):
     
     ##
-    plt.style.use('fast')
+    sns.set_style('whitegrid')
+    
     plt.figure( figsize=(10, 6) )
      # also we want it hori and we want them ordered 
-
-    sns.histplot(x = df.passenger_count, bins=9, kde=False, color='lightgray' ,  linewidth=2 , fill=True   )# we are using fd to determin the bins
+    sns.countplot(x=df.passenger_count, color='lightgray')
     
     plt.title('Distribution of Passenger Count', fontsize=16)
-    plt.xlabel('Passenger Count in the car')
+    plt.xlabel('Passenger Count')
     plt.ylabel('Frequency')
-    
-    #plt.axvline(x=df.passenger_count.mean(), color='black', linestyle='--', label='Mean')
-    #adding the value of the mean in numbers 
-    #plt.text(df.passenger_count.mean(), plt.ylim()[1]*0.9, f'  Mean: {df.passenger_count.mean():.2f}', color='black')
-    
-    #plt.axvline(x=df.passenger_count.median(), color='darkgreen', linestyle='--', label='Median')
-    #plt.text(df.passenger_count.median(), plt.ylim()[1]*0.9, f'  median: {df.passenger_count.median():.2f}', color='black')
-    
-    plt.legend()
     
     
     sns.despine()
     #now we will save the plot as an image file
+    import matplotlib.ticker as mticker
+    plt.gca().yaxis.set_major_formatter(mticker.StrMethodFormatter('{x:,.0f}'))
     plt.savefig('dist_passenger.png')
     plt.show()
-
-#
-#Note : 
-#from it we can tell that majority of the trips has 1 passenger
-
 
 
 

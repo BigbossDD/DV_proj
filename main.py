@@ -19,26 +19,19 @@ def main():
     #Reading the data section
     print("Reading data...")
     data = read_data()
-    
-    #######
-    #preprocessing
+    #df = data.copy()
+      
+    ########
+    # #preprocessing
     print("Preprocessing data...")
-    #####
+   
     
-    data = handle_nulls(data)
+    #data = handle_nulls(data)
 
     #data = detect_anomalies(data)
 
     ################### NOTE this section is MICS so delete when done 
 
-    missing_cols = [
-        'passenger_count',
-        'RatecodeID',
-        'store_and_fwd_flag',
-        'payment_type',
-        'congestion_surcharge',
-        'Airport_fee'
-    ]
     
     
 ###################################
@@ -48,26 +41,34 @@ def main():
      
     
     #UNIVARIATE ANALYSIS
-    
-    #analyze_fare_amount(data) # -->DONE
-    
-    #trip_dist(data) # --> DONE , maybe color
-    
-    #payment_type(data) # --> need more on the color and the x axis numbers are bad looking 
-    #rate_code(data) #--> the cols one of them is too tall it is basicly dominating the plot so we will need to change the width of the bars and maybe the color
+    #DONE section 
+    '''
+    dist_passenger(data) 
 
-    #dist_passenger(data) # --> check again 
+    analyze_fare_amount(data) 
+
+    trip_dist(data) 
+    payment_type(data)
+    rate_code(data)
     
+    '''
+    
+
     #passenger_count_over_time(data)
 
-    VendorID_trips_count_for_each(data) # DONE
+    #VendorID_trips_count_for_each(data) # DONE
 
 ###################
     #bivariate analysis
+    #DONE section : 
+    '''
+    hour_x_trip_volume(data)
+    weekDay_x_trip_volume(data)
 
-    #hour_x_trip_volume(data)
-    #weekDay_x_trip_volume(data)
-    #paymentType_X_totalAmount(data)
+    '''
+    #
+    
+    #paymentType_X_totalAmount(data)--> check this again the box is ugly as f
     
     
 ###################

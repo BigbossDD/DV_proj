@@ -4,19 +4,19 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def trip_dist(df):
-    
+    #NOTE REMOVE later
    #first checking for outliers 
-    sns.boxplot(x=df['trip_distance'])
-    plt.title('Boxplot of Trip Distance')
-    plt.show()
+    # sns.boxplot(x=df['trip_distance'])
+    # plt.title('Boxplot of Trip Distance')
+    # plt.show()
     ###
     # so they do exist , we will remove them 
-    #Q1 = df['trip_distance'].quantile(0.25)
-    #Q3 = df['trip_distance'].quantile(0.75)
-    #IQR = Q3 - Q1
-    #lower_bound = Q1 - 1.5 * IQR
-    #upper_bound = Q3 + 1.5 * IQR
-    #df = df[(df['trip_distance'] >= lower_bound) & (df['trip_distance'] <= upper_bound)]
+    Q1 = df['trip_distance'].quantile(0.25)
+    Q3 = df['trip_distance'].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    df = df[(df['trip_distance'] >= lower_bound) & (df['trip_distance'] <= upper_bound)]
     
     #sns.boxplot(x=df['trip_distance'])
     #plt.title('Boxplot of Trip Distance')
@@ -24,12 +24,11 @@ def trip_dist(df):
     #######################################################################
     ## Now to ploting
     ##
-    '''
+    
     plt.style.use('fast')
     plt.figure( figsize=(10, 6) )
      
-    sns.histplot(df['trip_distance'], bins=200, kde=True, palette='set2' , fill= True  )
-    # Replace your histplot line with this:
+    sns.histplot(df['trip_distance'], bins=50, kde=False, color='lightgray') # Replace your histplot line with this:
     #sns.kdeplot(df['trip_distance'], fill=True, color='#4C72B0',palette='Set2' , alpha=0.6)  # KDE plot with fill and color
     
     plt.title('Distribution of Trip Distance')
@@ -51,11 +50,10 @@ def trip_dist(df):
     plt.savefig('trip_distance_distribution.png')
     plt.show()
     
-'''
+    
 
 #a quick note a 1 mile is ~1.6 km 
-# remove the lines that indicate max value it reachecd to 
-#
+
 
 
 

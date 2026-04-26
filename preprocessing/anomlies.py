@@ -115,7 +115,7 @@ def detect_anomalies(data):
     '''
 RatecodeID
  1.000000     8391091   OKAY
- 2.459329     2264213   BAD  --> TURN TO 2 LOGICLY AS 2 MUST BE HIGHER THAN 3 
+ <UNKNOWN>    2264213   BAD  --> these are the null 
  2.000000      288617   OKAY
  99.000000     125079   Okay this is named null ,yet it can be considered that the driver forgot to turn meter on 
 
@@ -123,7 +123,7 @@ RatecodeID
  3.000000       27176   OKAY
  4.000000       21318   OKAY
 -1.000000         607   BAD --> TURN TO 1
- 12.000000        607   BAD --> UNKNOWN
+ 12.000000        607   BAD --> turn to 6
  88.000000        533   BAD --> TURN TO 99
  6.000000          11   OKAY
  '''
@@ -241,8 +241,7 @@ Name: fare_amount, dtype: float64
     #so a desion was taken to remove all the data points that have a trip distance above 100 miles as they are not real and they will affect our analysis
     data = data[data['trip_distance'] <= 100]
 ##############################################
-#################
-# NOTE this is bi-variate related : 
+################# 
 # 1- in payment type   
     '''
     payment_type
@@ -257,7 +256,7 @@ Name: fare_amount, dtype: float64
 7.0        549 --> BAD
 
 5.0          1 --> OK , BUT it is only one value and it is called unknown so is it like a null value  ? 
-<MIA> --> 6  and it is actually called voided so investgate ?
+<MIA> --> 6  and it is actually called voided so investgate ? do we like treat like null ? 
 '''
 
     data = data[data['payment_type'].isin([0, 1, 2, 3, 4, 5 , 6 ])]
@@ -276,7 +275,54 @@ Name: fare_amount, dtype: float64
 
 ##############################################
 #################
-# NOTE this is multi-variate related :
+    df = data.copy()
+
+    print("=== LOCATION CONSISTENCY CHECK ===\n")
+
+    # -------------------------------
+    # 1. Missing values check
+    # -------------------------------
+    print("Missing values in location fields:")
+    print(df[['PULocationID', 'DOLocationID']].isnull().sum(), "\n")
+
+    # -------------------------------
+    # 2. Invalid IDs (basic sanity check)
+    # assuming valid IDs should be positive integers
+    # -------------------------------
+    invalid_pu = df[df['PULocationID'] <= 0]
+    invalid_do = df[df['DOLocationID'] <= 0]
+
+    print(f"Invalid PULocationID records: {len(invalid_pu)}")
+    print(f"Invalid DOLocationID records: {len(invalid_do)}\n")
+
+    # -------------------------------
+    # 3. Same pickup and dropoff
+    # -------------------------------
+    same_location = df[df['PULocationID'] == df['DOLocationID']]
+
+    print(f"Trips with same pickup & dropoff: {len(same_location)}\n")
+
+    # -------------------------------
+    # 4. Extreme case inspection
+    # (very high frequency locations)
+    # -------------------------------
+    print("Top 5 pickup locations:")
+    print(df['PULocationID'].value_counts().head(), "\n")
+
+    print("Top 5 dropoff locations:")
+    print(df['DOLocationID'].value_counts().head(), "\n")
+
+    # -------------------------------
+    # 5. Optional: suspicious pattern sample
+    # -------------------------------
+    print("Sample same-location trips:")
+    print(
+        same_location[
+            ['trip_id', 'PULocationID', 'DOLocationID', 'trip_distance', 'fare_amount']
+        ].head(10)
+    )
+
+    #print(same_location)
     return  data 
 
 

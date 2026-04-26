@@ -18,8 +18,9 @@ def passenger_count_over_time(data):
     
     plt.title('Passenger Count Distribution Over Months')
     plt.xlabel('Month')
-    plt.ylabel('Number of passengers')
-    
+    plt.ylabel('Number of Trips')
+    import matplotlib.ticker as mticker
+    plt.gca().yaxis.set_major_formatter(mticker.StrMethodFormatter('{x:,.0f}'))
     #plt.yscale('log')
     sns.despine() 
     
