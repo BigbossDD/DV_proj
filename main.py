@@ -12,6 +12,7 @@ from Analytical_section.Univariate_EDA.dist_passenger import dist_passenger
 from Analytical_section.Univariate_EDA.passenger_count_over_time import passenger_count_over_time
 from preprocessing.nulls_handle import handle_nulls
 from preprocessing.anomlies import detect_anomalies
+from Analytical_section.Bivariate_EDA.day_of_week_X_hours_X_total_count_of_trips import facet_hour_x_weekday
 import seaborn as sns 
 import matplotlib.pyplot as plt 
 
@@ -48,15 +49,15 @@ def main():
     analyze_fare_amount(data) 
 
     trip_dist(data) 
-    payment_type(data)
-    rate_code(data)
     
+    rate_code(data)
+    VendorID_trips_count_for_each(data)  --> maybe just humnize the code 
     '''
     
-
+    payment_type(data)
     #passenger_count_over_time(data)
 
-    #VendorID_trips_count_for_each(data) # DONE
+    # DONE
 
 ###################
     #bivariate analysis
@@ -64,7 +65,7 @@ def main():
     '''
     hour_x_trip_volume(data)
     weekDay_x_trip_volume(data)
-
+    facet_hour_x_weekday(data) 
     '''
     #
     
