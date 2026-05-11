@@ -2,31 +2,22 @@
 
 def handle_nulls(data):
 
-    #checking for nulls 
-
     
 
-    #print(data.isnull().sum())
-    # a suggested way to deal with the nulls 
-    # nulls do exisit in and how we will dealwith it  {
-    # passenger_count:mean'it make sense that we fill it with the mean as the ppl in the city are the same and that is there pattern' 
-    # ,RatecodeID: mean 'it actally better as it help the company look good'
-    # ,store_and_fwd_flag:mode 'as the higher precentge of ppl will be either y or n and the probablity that all these null '
-    # ,payment_type : mode' as the there is a higher chance that those nulls follow the majority in the payment method ' , 
-    # congestion_surcharge : mean ''
-    # ,Airport_fee : mean ''
-    # }
+    data['passenger_count'] = data['passenger_count'].fillna(data['passenger_count'].mode()[0])
 
-    data['passenger_count']=data['passenger_count'].fillna(data['passenger_count'].mean()).round()  
-    data['RatecodeID']=data['RatecodeID'].fillna(data['RatecodeID'].mean()).round()
+    data['RatecodeID']=data['RatecodeID'].fillna(99)
+
     data['store_and_fwd_flag']=data['store_and_fwd_flag'].fillna(data['store_and_fwd_flag'].mode()[0])
-    data['payment_type']=data['payment_type'].fillna(data['payment_type'].mode()[0]).round()
-    data['congestion_surcharge']=data['congestion_surcharge'].fillna(data['congestion_surcharge'].mode()[0]).round()
-    data['Airport_fee']=data['Airport_fee'].fillna(data['Airport_fee'].mean())
+
+    data['payment_type']=data['payment_type'].fillna(5)
+
+    data['congestion_surcharge']=data['congestion_surcharge'].fillna(0)
+    data['Airport_fee']=data['Airport_fee'].fillna(0)
 
     ### print(data.isnull().sum())
 
-    ##### after dealing with the nulls we will check for duplicates
+  
     return data
 
 '''
@@ -54,4 +45,3 @@ cbd_congestion_fee             0
 source_month                   0
 '''
 
-#print(data[data.payment_type.isnull()]['payment_type'])

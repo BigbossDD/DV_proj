@@ -32,7 +32,7 @@ def detect_anomalies(data):
     #print(len(x[['trip_id', 'fare_amount','total_amount']]))
     
     # so i will remove whats above 500 as it is not a real value and it will affect the data
-    data = data[data.fare_amount < 500]
+    #data = data[data.fare_amount < 500]
 
 
     
@@ -104,9 +104,7 @@ def detect_anomalies(data):
 '''
     data = data[(data['month'] != 12) & (data['month'] != 4)]
 
-    #ALSO in passenger_count there exist 1.2888 as a passenger_count which is not possible so it will need to be turned into 
-    # 1 as it is the closest value to it and it is the most likely value to be the real one
-    data['passenger_count'] = data['passenger_count'].round().astype(int) #NOTE
+    
 #####################################
 # 3- RatecodeID
 
@@ -132,7 +130,6 @@ RatecodeID
     # also we will need to turn 12 to unknown as it is not in the look up table and it is not a valid value
     # also we will need to turn 88 to 99 as it is the closest value to it and it is the most likely value to be the real one
 
-    data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 2 if x == 2.459329 else x)#NOTE
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 1 if x == -1 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 6 if x == 12 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 99 if x == 88 else x)
@@ -239,7 +236,7 @@ max      46263.880000
 Name: fare_amount, dtype: float64
     '''
     #so a desion was taken to remove all the data points that have a trip distance above 100 miles as they are not real and they will affect our analysis
-    data = data[data['trip_distance'] <= 100]
+    #data = data[data['trip_distance'] <= 100]
 ##############################################
 ################# 
 # 1- in payment type   
@@ -259,7 +256,7 @@ Name: fare_amount, dtype: float64
 <MIA> --> 6  and it is actually called voided so investgate ? do we like treat like null ? 
 '''
 
-    data = data[data['payment_type'].isin([0, 1, 2, 3, 4, 5 , 6 ])]
+    #data = data[data['payment_type'].isin([0, 1, 2, 3, 4, 5 , 6 ])]
 
     #print(data.payment_type.value_counts())
 
@@ -275,53 +272,6 @@ Name: fare_amount, dtype: float64
 
 ##############################################
 #################
-    df = data.copy()
-
-    print("=== LOCATION CONSISTENCY CHECK ===\n")
-
-    # -------------------------------
-    # 1. Missing values check
-    # -------------------------------
-    print("Missing values in location fields:")
-    print(df[['PULocationID', 'DOLocationID']].isnull().sum(), "\n")
-
-    # -------------------------------
-    # 2. Invalid IDs (basic sanity check)
-    # assuming valid IDs should be positive integers
-    # -------------------------------
-    invalid_pu = df[df['PULocationID'] <= 0]
-    invalid_do = df[df['DOLocationID'] <= 0]
-
-    print(f"Invalid PULocationID records: {len(invalid_pu)}")
-    print(f"Invalid DOLocationID records: {len(invalid_do)}\n")
-
-    # -------------------------------
-    # 3. Same pickup and dropoff
-    # -------------------------------
-    same_location = df[df['PULocationID'] == df['DOLocationID']]
-
-    print(f"Trips with same pickup & dropoff: {len(same_location)}\n")
-
-    # -------------------------------
-    # 4. Extreme case inspection
-    # (very high frequency locations)
-    # -------------------------------
-    print("Top 5 pickup locations:")
-    print(df['PULocationID'].value_counts().head(), "\n")
-
-    print("Top 5 dropoff locations:")
-    print(df['DOLocationID'].value_counts().head(), "\n")
-
-    # -------------------------------
-    # 5. Optional: suspicious pattern sample
-    # -------------------------------
-    print("Sample same-location trips:")
-    print(
-        same_location[
-            ['trip_id', 'PULocationID', 'DOLocationID', 'trip_distance', 'fare_amount']
-        ].head(10)
-    )
-
     #print(same_location)
     return  data 
 

@@ -1,5 +1,5 @@
 # Ignore all CSV files
 *.csv
-
+*.parquet
 # Ignore all ZIP files
-*.zip
+*.zipcleaned_data.parquet

@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 
 def passenger_count_over_time(data):
-    #
-
+    #NOTE keep
+    data = data[(data['month'] != 12) & (data['month'] != 4)]
+    
     plt.style.use('fast')
     plt.figure(figsize=(12, 6))
     

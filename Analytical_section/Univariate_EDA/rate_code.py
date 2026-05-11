@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.ticker as mticker
 
 
 def rate_code(data):
-    plt.style.use('classic')
+    plt.style.use('fast')
     plt.figure(figsize=(12, 5))
 
     # map values to labels before plotting
@@ -19,19 +20,37 @@ def rate_code(data):
 
     data['RatecodeID_label'] = data['RatecodeID'].map(label_map)
 
-    sns.countplot(
+    ax = sns.countplot(
         y=data['RatecodeID_label'],
         width=0.8,
         palette='Set2',
         order=data['RatecodeID_label'].value_counts().index
     )
 
+    # ---- format x-axis ----
+    ax.xaxis.set_major_formatter(
+        mticker.StrMethodFormatter('{x:,.0f}')
+    )
+
+    # ---- add values at end of bars ----
+    for p in ax.patches:
+        width = p.get_width()
+
+        ax.annotate(
+            f'{int(width):,}',
+            (width, p.get_y() + p.get_height()/2),
+            ha='left',
+            va='center',
+            xytext=(5, 0),
+            textcoords='offset points'
+        )
+
     plt.title('Frequencies of RateCode Types')
     plt.xlabel('Number of Trips')
     plt.ylabel('Rate Code')
-    
+
     sns.despine()
     plt.tight_layout()
-    
-    plt.savefig('rate_code_freq.png')
+
+    plt.savefig('rate_code_freq.png', dpi=150)
     plt.show()

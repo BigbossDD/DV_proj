@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as mticker
-
+import pandas as pd
 def trip_dist(df):
     #NOTE remove later
-    Q1 = df['trip_distance'].quantile(0.25)
-    Q3 = df['trip_distance'].quantile(0.75)
-    IQR = Q3 - Q1
-    df = df[(df['trip_distance'] >= Q1 - 1.5 * IQR) & (df['trip_distance'] <= Q3 + 1.5 * IQR)]
-    df = df[df['trip_distance'] > 0]
-
+    #Q1 = df['trip_distance'].quantile(0.25)
+    #Q3 = df['trip_distance'].quantile(0.75)
+    #IQR = Q3 - Q1
+    #df = df[(df['trip_distance'] >= Q1 - 1.5 * IQR) & (df['trip_distance'] <= Q3 + 1.5 * IQR)]
+    #df = df[df['trip_distance'] > 0]
+    df = df.sample(200000, random_state=42)
     plt.style.use('fast')
     plt.figure(figsize=(10, 6))
 
