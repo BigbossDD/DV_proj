@@ -12,11 +12,6 @@ from Analytical_section.Bivariate_EDA.hour_x_trip_volume import hour_x_trip_volu
 from Analytical_section.Bivariate_EDA.paymentType_X_totalAmount import paymentType_X_totalAmount
 from Analytical_section.Bivariate_EDA.weekDay_X_demand import weekDay_x_trip_volume
 from Analytical_section.Univariate_EDA.vendors_share_of_market import vendor_market_share
-from preprocessing.Data_Quality_Review import data_desc
-from preprocessing.data_checker import full_data_quality_audit
-from preprocessing.data_scan import data_quality_scan
-from preprocessing.extract_ID_issue_rows import extract_issue_ids
-from preprocessing.make_csv_file_for_issues import issues_to_csv
 from preprocessing.reading_data import read_data
 from Analytical_section.Univariate_EDA.fare_amount import analyze_fare_amount
 from Analytical_section.Univariate_EDA.trip_dist import trip_dist
@@ -35,33 +30,52 @@ from Analytical_section.Multivariate_EDA.distance_fare_payment import distance_f
 import matplotlib.pyplot as plt 
 
 def main():
+    #
     #Reading the data section
+    #
     print("Reading data...")
-    data = read_data() # main data src
+    data = read_data() # main data src , also from it we can create the cleaned data if you dont have it by following the instructions in the read_data() function
     
     ########
-    # #preprocessing
+    #preprocessing
+    #
     print("Preprocessing data...")
     
-   
-    ##if you want to make clean the data , uncomment 
-    #the 3 lines below , and you need only to do it once if you dont have the data 
+    '''
+
+    if you want to make clean the data , uncomment 
+    the 3 lines below , and you need only to do it once if you dont have the data 
+    also go to read_data() and follow the instructions if you didnt 
+
+    '''
     #data = handle_nulls(data)
    
     #data = detect_anomalies(data)
     
     #data.to_parquet('cleaned_data.parquet', index=False)
-######################################################################
-    ################### NOTE this section is MICS so delete when done 
-    # print(data.isna().sum())
-    # print(data.describe())
+
 ######################################################################################
+#
+#       ANALYSIS SECTION
+#
+######################################################################################
+    
+    '''
+    this is the analysis section 
+
+    the analysis section is divided into 3 main sections : univariate , bivariate and multivariate
+    '''
     print('Starting analysis...')
     
-    #
-    ######
+    '''
+    so to make plots , you must uncomment the function you want to run and run the main.py file
+    and the plot will be saved in the same directory as the main.py file with the name of the plot in the function 
+
+    '''
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+######################################################################################
     #UNIVARIATE ANALYSIS
-     
+    ######################################################################################
     
     #dist_passenger(data) 
     #analyze_fare_amount(data)  
@@ -69,12 +83,14 @@ def main():
     #top_locations_side_by_side(data)  
     #rate_code(data) #NULL issue
     #VendorID_trips_count_for_each(data) 
-    payment_type(data)
+    #payment_type(data)
     #vendor_market_share(data)  #NOTE
     #passenger_count_over_time(data) 
 
-###################
-    #bivariate analysis
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+######################################################################################
+    #BIVARIATE ANALYSIS
+    ######################################################################################
    
     #hour_x_trip_volume(data)
     #weekDay_x_trip_volume(data)
@@ -82,9 +98,10 @@ def main():
     #demand_over_time(data) 
     #paymentType_X_totalAmount(data) 
     
-    
-###################
-    #multivariate analysis
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+######################################################################################
+    #MULTIVARIATE ANALYSIS
+    ######################################################################################
 
     #hour_payment_demand(data)
     #hour_revenue_trend(data) # DONE 
@@ -98,6 +115,14 @@ def main():
            #color bad 
     
     #vendor_market_share__(data)  #BAD
+
+
+
+
+
+######################################################################################
+######################################################################################
+######################################################################################
 if __name__ == "__main__":
     main()
     

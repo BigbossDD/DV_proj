@@ -56,12 +56,11 @@ def hour_payment_demand(data):
 
     sns.heatmap(
         pivot,
-        cmap='viridis', # a more formal color scheme is : 'viridis' or 'plasma'
+        cmap='viridis', 
         linewidths=0.3
     )
 
     plt.title('Demand by Hour and Payment Type')
-
     plt.xlabel('Payment Type')
     plt.ylabel('Hour of Day')
 

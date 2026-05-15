@@ -37,6 +37,8 @@ def facet_hour_x_weekday(df):
     for ax in g.axes.flat:
         ax.tick_params(axis='x', rotation=45 , labelsize=6)
 
+
+
     sns.despine()
 
     plt.subplots_adjust(top=0.9)

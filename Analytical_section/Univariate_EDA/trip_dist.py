@@ -3,26 +3,26 @@ import seaborn as sns
 import matplotlib.ticker as mticker
 import pandas as pd
 def trip_dist(df):
-    #NOTE remove later
-    #Q1 = df['trip_distance'].quantile(0.25)
-    #Q3 = df['trip_distance'].quantile(0.75)
-    #IQR = Q3 - Q1
-    #df = df[(df['trip_distance'] >= Q1 - 1.5 * IQR) & (df['trip_distance'] <= Q3 + 1.5 * IQR)]
-    #df = df[df['trip_distance'] > 0]
+    #NOTE we sampled 200k rows to make the plot more readable and faster to run , 
+    # you can change the number of rows by changing the number in the sample() function
+
     df = df.sample(200000, random_state=42)
+
+    #################################################
     plt.style.use('fast')
     plt.figure(figsize=(10, 6))
 
     ax = sns.histplot(df['trip_distance'], bins=50, kde=False, color='lightgray')
 
     
-    ax.xaxis.set_major_locator(mticker.MultipleLocator(0.5))   # change to 0.25 if you want even more detail
+    ax.xaxis.set_major_locator(mticker.MultipleLocator(0.5 ))   
 
+    #
     plt.title('Distribution of Trip Distance')
     plt.xlabel('Trip Distance (miles)')
     plt.ylabel('Frequency')
 
-    # Mean & Median
+    #  mean & Median of the cols :
     mean_val = df['trip_distance'].mean()
     median_val = df['trip_distance'].median()
 
@@ -36,6 +36,8 @@ def trip_dist(df):
         color='darkgreen',
         ha='right')
     plt.legend()
+
+    #
     sns.despine()
 
     plt.savefig('trip_distance_distribution.png')

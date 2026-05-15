@@ -20,13 +20,7 @@ def demand_over_time(data):
     data['date'] = data['tpep_pickup_datetime'].dt.date
     daily_trips = data.groupby('date').size().reset_index(name='trip_count')
 
-    # main trend
-    #sns.lineplot(
-    #    x='date',
-    #    y='trip_count',
-    #    data=daily_trips,
-    #    label='Daily Trips'
-    #)
+    
 
     # 7-day rolling average
     daily_trips['rolling_avg'] = daily_trips['trip_count'].rolling(7).mean()

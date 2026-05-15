@@ -6,7 +6,7 @@ def hour_x_trip_volume(df):
     plt.figure(figsize=(10, 6))
     
         
-    # Group by hour and count trips
+    # group by hour and count trips
     hourly_trips = df.groupby('pickup_hour').size().reset_index(name='trip_count')
     
     # Plotting

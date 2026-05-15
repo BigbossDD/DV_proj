@@ -4,7 +4,7 @@ import seaborn as sns
 # cbd_congestion_before_after.py
 def cbd_effect_analysis(df):
 
-    #removing all totallamounts above 200 to avoid outliers
+    #removing all totallamounts above 150 to avoid outliers
     df=df[df.total_amount < 150 ]
     
 

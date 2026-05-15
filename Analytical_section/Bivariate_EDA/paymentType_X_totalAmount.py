@@ -5,11 +5,10 @@ import matplotlib.ticker as mticker
 
 
 def paymentType_X_totalAmount(data):
-
-    # ---- keep valid payment types ----
+#this is a preprocessing step just incase ,to ensure we only have these 7 payments
     data = data[data['payment_type'].isin([0,1,2,3,4,5,6])]
 
-    # ---- mapping ----
+    #  mapping 
     mapping = {
         0: 'Flex Fare',
         1: 'Credit Card',
@@ -20,7 +19,7 @@ def paymentType_X_totalAmount(data):
         6: 'Voided Trip'
     }
 
-    # ---- aggregate revenue ----
+    #  aggregate revenue 
     revenue = (
         data.groupby('payment_type')['total_amount']
         .sum()
@@ -35,7 +34,7 @@ def paymentType_X_totalAmount(data):
         ascending=False
     )
 
-    # ---- plotting ----
+    #  plotting 
     plt.style.use('fast')
 
     fig, axes = plt.subplots(

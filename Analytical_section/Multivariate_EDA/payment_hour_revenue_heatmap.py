@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as mticker
 
-# payment_hour_revenue_heatmap.py
+
 def payment_hour_revenue(data):
 
     payment_map = {

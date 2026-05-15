@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt 
 import seaborn as sns 
+import matplotlib.ticker as mticker
 
 def passenger_count_over_time(data):
-    #NOTE keep
+    #preprocessing the data for the plot
     data = data[(data['month'] != 12) & (data['month'] != 4)]
     
     plt.style.use('fast')
@@ -20,9 +21,9 @@ def passenger_count_over_time(data):
     plt.title('Passenger Count Distribution Over Months')
     plt.xlabel('Month')
     plt.ylabel('Number of Trips')
-    import matplotlib.ticker as mticker
+    
     plt.gca().yaxis.set_major_formatter(mticker.StrMethodFormatter('{x:,.0f}'))
-    #plt.yscale('log')
+   
     sns.despine() 
     
     plt.savefig('passenger_count_over_time.png')

@@ -7,7 +7,7 @@ def rate_code(data):
     plt.style.use('fast')
     plt.figure(figsize=(12, 5))
 
-    # map values to labels before plotting
+    # map values to labels before plotting :
     label_map = {
         1.0  : 'Standard rate',
         2.0  : 'JFK',
@@ -27,12 +27,12 @@ def rate_code(data):
         order=data['RatecodeID_label'].value_counts().index
     )
 
-    # ---- format x-axis ----
+    #fixes to the x axiss
     ax.xaxis.set_major_formatter(
         mticker.StrMethodFormatter('{x:,.0f}')
     )
 
-    # ---- add values at end of bars ----
+    
     for p in ax.patches:
         width = p.get_width()
 
@@ -44,13 +44,13 @@ def rate_code(data):
             xytext=(5, 0),
             textcoords='offset points'
         )
-
+    #
     plt.title('Frequencies of RateCode Types')
     plt.xlabel('Number of Trips')
     plt.ylabel('Rate Code')
-
+    
+    #
     sns.despine()
     plt.tight_layout()
-
     plt.savefig('rate_code_freq.png', dpi=150)
     plt.show()

@@ -24,7 +24,7 @@ def fare_per_mile_analysis(data):
     plt.xlabel('Fare per Mile')
     plt.ylabel('Frequency')
 
-    # 👇 remove scientific notation (LE6 problem)
+    
     plt.gca().yaxis.set_major_formatter(
         mticker.StrMethodFormatter('{x:,.0f}')
     )

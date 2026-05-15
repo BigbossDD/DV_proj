@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# distance_fare_tip_relationship.py
+
 def distance_fare_tip_relationship__(data):
 
     df = data.copy()
@@ -9,7 +9,8 @@ def distance_fare_tip_relationship__(data):
     df =df[df.tip_amount > 0 ]
     plt.style.use('fast')
     plt.figure(figsize=(10, 6))
-
+    
+    #we will sample the data 
     sns.scatterplot(
         data=df.sample(150000, random_state=42),
         x='trip_distance',

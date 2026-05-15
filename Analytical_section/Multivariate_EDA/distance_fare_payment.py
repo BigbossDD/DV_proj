@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def distance_fare_payments(data):
-    #only keeping dist that is less than 100m
+    #only keeping dist that is less than 40 mile
     data = data[data['trip_distance'] < 40]
     # sample for performance
     df = data.sample(200000, random_state=42)
@@ -30,7 +30,7 @@ def distance_fare_payments(data):
     '6': 'Voided Trip',
     }
 
-    # edit legend labels
+    
     handles, labels = ax.get_legend_handles_labels()
 
     new_labels = [

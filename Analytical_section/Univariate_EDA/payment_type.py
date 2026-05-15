@@ -6,17 +6,11 @@ import seaborn as sns
 import matplotlib.ticker as mticker
 
 def payment_type(data):
-    #NOTE REMOVE LATER: 
-
     
-    #filling null with 5 as there id 
-   # data['payment_type'] = data['payment_type'].fillna(5).round()
-   # data = data[data['payment_type'].isin([0, 1, 2, 3, 4, 5 , 6 ])]
-    # payment type : 
-    #0 : Flex Fare trip  1: credit card 2: cash 3: no charge 4: dispute 5: unknown 6: voided trip
-    sns.set_style('whitegrid') # to have a nice background for the plot
+  
+    sns.set_style('whitegrid') 
     plt.figure(figsize=(10, 6))
-    # we will do coord_flip() and make the bars horizontal
+    
     mapping = {
     0: 'Flex Fare',
     1: 'Credit Card',
@@ -54,6 +48,7 @@ def payment_type(data):
     ax.xaxis.set_major_locator(mticker.MaxNLocator(nbins=6))
     
     plt.xticks(rotation=30)   
+    
     sns.despine() 
     
     plt.savefig('payment_type_frequencies.png')

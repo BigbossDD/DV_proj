@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import squarify
 import seaborn as sns
+
 def vendor_market_share(data):
     
     plt.style.use('fast')

@@ -1,16 +1,19 @@
-#this section for unusal values  that isnt in the 
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@ #@ #@ #@#
+#this section for unusal values that isnt in the 
 #look up table 
 #as well outliers
+#or any values that doesnt make any sense and it is not a real value like negative values in fare amount or total amount
+#
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 def detect_anomalies(data):
 #################
-# NOTE this is UNivarite related : 
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
 # 1- fare amount 
+
     #now it gave 86k as a max for fare amount so for me it is odd so i will investigate
-    
     #sns.boxplot(x  = data.fare_amount)
     #plt.show()
     
@@ -18,7 +21,7 @@ def detect_anomalies(data):
     #so clearly they are outliers , and they wont be of any use to us , as even if they are real , 
     #they will be one in life anomaly rather than something you can study
     # there is no way someone is paying more than 150 to a taxi even in the worst scams  
-    #so we will remove them 
+    #one method is we will remove them 
     #data = data[data.fare_amount < 5000]
 
     # the rows that has this issue are : 
@@ -48,8 +51,8 @@ def detect_anomalies(data):
     #plt.show()
     #x = data[data.fare_amount <0]
     #print(len(x[['trip_id', 'fare_amount','total_amount']]))
-
-########
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
 #2 - passenger count & tpep_pickup_datetime
     #first we will need to turn the date data into either years only or month and years 
     #in a way we will need to turn them  into groups/bins 
@@ -105,7 +108,8 @@ def detect_anomalies(data):
     data = data[(data['month'] != 12) & (data['month'] != 4)]
 
     
-#####################################
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
 # 3- RatecodeID
 
     # in it exist values not in the look up table which are : 
@@ -133,7 +137,8 @@ RatecodeID
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 1 if x == -1 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 6 if x == 12 else x)
     data['RatecodeID'] = data['RatecodeID'].apply(lambda x : 99 if x == 88 else x)
-#########################
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
 #4- 
 # in the trip dist col there are extreme values , like 300k miles which is not possible , and many outliers 
 #so investgation where done and here it is its resluts : 
@@ -237,8 +242,8 @@ Name: fare_amount, dtype: float64
     '''
     #so a desion was taken to remove all the data points that have a trip distance above 100 miles as they are not real and they will affect our analysis
     #data = data[data['trip_distance'] <= 100]
-##############################################
-################# 
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
 # 1- in payment type   
     '''
     payment_type
@@ -270,8 +275,8 @@ Name: fare_amount, dtype: float64
 
 
 
-##############################################
-#################
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
+#@#$#@#@$@#@#@#@##@##@#@@#@#@#@#@#@#@##@#@##@#@#@##@#@#@#@###@##@#@#@#@#@#@#@#@#@#@#@#
     #print(same_location)
     return  data 
 

@@ -13,7 +13,7 @@ def hour_revenue_trend(data):
 
     fig, ax1 = plt.subplots(figsize=(12,6))
 
-    # ---------------- Trips ----------------
+  
     sns.lineplot(
         data=df,
         x='pickup_hour',
@@ -28,15 +28,15 @@ def hour_revenue_trend(data):
     ax1.set_xlabel('Hour of Day')
     ax1.set_ylabel('Number of Trips')
 
-    # show ALL hours
+    
     ax1.set_xticks(range(24))
 
-    # format trip counts nicely
+    
     ax1.yaxis.set_major_formatter(
         mticker.StrMethodFormatter('{x:,.0f}')
     )
 
-    # ---------------- Revenue ----------------
+    
     ax2 = ax1.twinx()
 
     sns.lineplot(
@@ -51,16 +51,18 @@ def hour_revenue_trend(data):
 
     ax2.set_ylabel('Revenue (USD)')
 
-    # remove scientific notation (1e6)
+    
     ax2.ticklabel_format(style='plain', axis='y')
 
-    # format revenue with commas
+
     ax2.yaxis.set_major_formatter(
         mticker.StrMethodFormatter('${x:,.0f}')
     )
 
-    # ---------------- Legend ----------------
+    
     lines1, labels1 = ax1.get_legend_handles_labels()
+    
+    
     lines2, labels2 = ax2.get_legend_handles_labels()
 
     ax1.legend(
